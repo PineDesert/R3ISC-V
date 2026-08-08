@@ -1,7 +1,7 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Project     : R3ISC-V
- * File        : Extend.svh
+ * File        : ExtendPkg.sv
  * Author      : JoeK
  * Created     : 2026/08/07
  *
