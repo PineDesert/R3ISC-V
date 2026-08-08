@@ -1,24 +1,30 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Project     : R3ISC-V
- * File        : Extend.svh
+ * File        : ALUPkg.sv
  * Author      : JoeK
- * Created     : 2026/08/07
+ * Created     : 2026/08/08
  *
- * Description : Package containing control type for extend module
+ * Description : Contains the ALU control enum
  *
  * License     : None
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package ExtendPkg;
+package AluPkg;
 
   typedef enum logic [1 : 0]
   {
-    ImmI = 2'b00,
-    ImmS = 2'b01,
-    ImmB = 2'b10,
-    ImmJ = 2'b11
-  } ImmediateType_t;
+    Add,
+    Sub,
+    And,
+    Or
+  } AluOpCtrl_t;
+
+  typedef enum logic
+  {
+    RegB,
+    ExtendImm
+  } AluSrc_t;
 
 endpackage
