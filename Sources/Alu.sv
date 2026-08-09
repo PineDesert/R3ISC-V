@@ -11,7 +11,7 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-import AluPkg::*;
+import CtrlPkg::*;
 
 module Alu ( input AluOpCtrl_t opCtrl
            , input logic [31 : 0] srcA

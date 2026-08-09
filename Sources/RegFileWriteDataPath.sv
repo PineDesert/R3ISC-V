@@ -11,7 +11,7 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-import RegFilePackage::*;
+import CtrlPkg::*;
 
 module RegFileWriteDataPath ( input RegFileWriteSrc writeSrc
                             , input logic [31 : 0] aluResult
