@@ -10,10 +10,10 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-import ExtendPkg::*;
+import CtrlPkg::*;
 
 module Extend ( input logic [31 : 0] instrBus
-              , input ImmediateType_t immType
+              , input ImmExtTypeCtrl_t immType
               , output logic [31 : 0] extendImm
               );
   always_comb

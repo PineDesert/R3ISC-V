@@ -13,7 +13,7 @@
 
 import CtrlPkg::*;
 
-module RegFileWriteDataPath ( input RegFileWriteSrc writeSrc
+module RegFileWriteDataPath ( input RegFileWriteSrcCtrl_t writeSrc
                             , input logic [31 : 0] aluResult
                             , input logic [31 : 0] dataMem
                             , input logic [31 : 0] PcPlus4

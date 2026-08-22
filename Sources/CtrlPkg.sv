@@ -11,7 +11,15 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package CtrlPkg();
+package CtrlPkg;
+
+  typedef enum logic [1 : 0]
+  {
+    AluDecReg,
+    AluDecImm,
+    AluDecLoadStore,
+    AluDecBranch
+  } AluDecoderCtrl_t;
 
   typedef enum logic [1 : 0]
   {
@@ -25,27 +33,27 @@ package CtrlPkg();
   {
     RegB,
     ExtendImm
-  } AluSrc_t;
+  } AluSrcCtrl_t;
 
   typedef enum logic [1 : 0]
   {
-    ImmI = 2'b00,
+    ImmI = 2'b00, // Not sure why these are explicitly written
     ImmS = 2'b01,
     ImmB = 2'b10,
     ImmJ = 2'b11
-  } ImmediateType_t;
+  } ImmExtTypeCtrl_t;
 
   typedef enum logic
   {
     PcPlus4,
     PcBranch
-  } PcSrc_t;
+  } PcSrcCtrl_t;
 
   typedef enum logic [1 : 0] 
   { 
     AluResult,
     DataMem,
     PcPlus4
-  } RegFileWriteSrc;
-  
+  } RegFileWriteSrcCtrl_t;
+
 endpackage

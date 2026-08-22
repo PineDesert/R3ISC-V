@@ -34,7 +34,9 @@ begin
     default:
       result = '0;
   endcase
+  zeroFlag = (result == '0) ? 1'b1 : 1'b0;
 end
 
-zeroFlag = (result == '0;);
+
+
 endmodule   

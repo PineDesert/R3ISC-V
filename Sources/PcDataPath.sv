@@ -11,9 +11,9 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-import PcPkg::*;
+import CtrlPkg::*;
 
-module PcDataPath ( input PcSrc_t nextPcSrc
+module PcDataPath ( input PcSrcCtrl_t nextPcSrc
                   , input logic [31: 0] pc
                   , input logic [31 : 0] nextPcOffset
                   , output logic [31 : 0] nextPc
