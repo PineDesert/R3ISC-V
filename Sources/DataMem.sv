@@ -12,15 +12,17 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-module DataMem #(parameter DEPTH = 256)
-                ( input logic clk
-                , input logic writeEnable
-                , input logic [4 : 0] addr
-                , input logic [31 : 0] writeData
-                , output logic [31 : 0] readData
-                );
+module DataMem #( parameter int WORD_WIDTH = 32
+                , parameter int ADDR_WIDTH = 5 
+                , parameter int DEPTH = 256
+                ) ( input logic clk
+                  , input logic writeEnable
+                  , input logic [ADDR_WIDTH - 1 : 0] addr
+                  , input logic [WORD_WIDTH - 1 : 0] writeData
+                  , output logic [WORD_WIDTH - 1 : 0] readData
+                  );
               
-  logic [31 : 0] mem [DEPTH - 1 : 0];
+  logic [WORD_WIDTH - 1 : 0] mem [DEPTH - 1 : 0];
 
   assign readData = mem[addr];
 

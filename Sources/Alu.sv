@@ -13,12 +13,12 @@
 
 import CtrlPkg::*;
 
-module Alu ( input AluOpCtrl_t opCtrl
-           , input logic [31 : 0] srcA
-           , input logic [31 : 0] srcB
-           , output logic [31 : 0] result
-           , output logic zeroFlag
-           );
+module Alu #(parameter int WIDTH = 32) ( input AluOpCtrl_t opCtrl
+                                       , input logic [WIDTH - 1 : 0] srcA
+                                       , input logic [WIDTH - 1 : 0] srcB
+                                       , output logic [WIDTH - 1 : 0] result
+                                       , output logic zeroFlag
+                                       );
 
 always_comb
 begin

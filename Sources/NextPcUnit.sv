@@ -1,7 +1,7 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Project     : R3ISC-V
- * File        : PcDataPath.sv
+ * File        : NextPcMux.sv
  * Author      : JoeK
  * Created     : 2026/08/08
  *
@@ -13,18 +13,21 @@
 
 import CtrlPkg::*;
 
-module PcDataPath ( input PcSrcCtrl_t nextPcSrc
-                  , input logic [31: 0] pc
-                  , input logic [31 : 0] nextPcOffset
-                  , output logic [31 : 0] nextPc
-                  );
+module NextPcUnit #( parameter int WIDTH = 32
+                   , parameter int INCREMENT_AMOUNT = 4) 
+                   ( input PcSrcCtrl_t nextPcSrc
+                   , input logic [WIDTH : 0] pc
+                   , input logic [WIDTH  : 0] nextPcOffset
+                   , output logic [WIDTH : 0] nextPc
+                   );
+
   always_comb 
   begin : NextPcLogic
-    logic [31 : 0] pcIncr;
+    logic [WIDTH : 0] pcIncr;
 
     unique case (nextPcSrc)
       PcPlus4:
-        pcIncr = 32'b4;
+        pcIncr = WIDTH'(INCREMENT_AMOUNT);
       PcBranch:
         pcIncr = nextPcOffset;
     endcase

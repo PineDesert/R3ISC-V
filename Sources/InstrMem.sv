@@ -11,12 +11,15 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-module InstrMem #(parameter DEPTH = 256)
-                 ( input logic [4 : 0] addr
-                 , output logic [31 : 0] readData
-                 );
+module InstrMem #(parameter int WORD_WIDTH = 32
+                , parameter int ADDR_WIDTH = 5 
+                , parameter int DEPTH = 256
+                )  ( input logic [ADDR_WIDTH - 1 : 0] addr
+                   , output logic [WORD_WIDTH - 1 : 0] readData
+                   );
+                
 
-  logic [31 : 0] mem [DEPTH - 1 : 0];
+  logic [WORD_WIDTH - 1 : 0] mem [DEPTH - 1 : 0];
 
   initial
   begin: PopulateInstrMem

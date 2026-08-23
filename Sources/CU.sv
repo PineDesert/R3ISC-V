@@ -1,7 +1,7 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Project     : R3ISC-V
- * File        : CU.sv
+ * File        : Cu.sv
  * Author      : JoeK
  * Created     : 2026/08/09
  *
@@ -14,7 +14,7 @@
 import CtrlPkg::*;
 import DecodePkg::*;
 
-module CU ( input logic [31 : 0] instrBus
+module Cu ( input logic [31 : 0] instrBus
           , input logic zeroFlag
           , output AluOpCtrl_t aluOpCtrl
           , output AluSrcCtrl_t aluSrcCtrl

@@ -1,7 +1,7 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Project     : R3ISC-v
- * File        : PC.sv
+ * File        : Pc.sv
  * Author      : JoeK
  * Created     : 2026/08/08
  *
@@ -11,11 +11,11 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-module PC #(parameter WIDTH = 32)
+module Pc #(parameter WIDTH = 32)
            ( input logic clk
            , input logic nReset
            , input logic [WIDTH - 1: 0] nextPC
-           , output logic [WIDTH - 1 : 0] PC
+           , output logic [WIDTH - 1 : 0] pc
            );
 
   always_ff @(posedge clk or negedge nReset)
