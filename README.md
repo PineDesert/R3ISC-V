@@ -8,3 +8,5 @@ ADDI
 AND
 OR
 BEQ
+LW
+SW

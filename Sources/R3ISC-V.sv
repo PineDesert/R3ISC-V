@@ -13,18 +13,15 @@
 
 import CtrlPkg::*;
 
-module R3ISC_V ();
+module R3ISC_V (input logic clk, input logic nReset, output logic [31 : 0] debugPc);
+
+
   localparam int _WORD_WIDTH = 32;
-  localparam int _ADDR_WIDTH = 5;
+  localparam int _REG_ADDR_WIDTH = 5;
   localparam int _DMEM_DEPTH = 16; // No protection if DMEM address exceeds atm
   localparam int _IMEM_DEPTH = 16; // Same as above
   localparam int _REG_FILE_DEPTH = 32;
   localparam int _PC_INCREMENT = 4;
-
-  // to be assigned
-  logic clk;
-  logic nPcReset;
-  logic [_WORD_WIDTH - 1 : 0] regWrite3;
 
   AluOpCtrl_t aluOpCtrl;
   AluSrcCtrl_t aluSrcCtrl;
@@ -84,21 +81,22 @@ module R3ISC_V ();
                   );
 
   Pc #(.WIDTH(_WORD_WIDTH)) pc ( .clk(clk)
-                               , .nReset(nPcReset)
                                , .nextPC(nextPc)
                                , .pc(programCount)
                                );
 
   NextPcUnit #( .WIDTH(_WORD_WIDTH)
               , .INCREMENT_AMOUNT(_PC_INCREMENT)
-              ) nextPcUnit ( .nextPcSrc(pcSrcCtrl)
+              ) nextPcUnit ( .clk(clk)
+                           , .nReset(nReset)
+                           , .nextPcSrc(pcSrcCtrl)
                            , .pc(programCount)
                            , .nextPcOffset(extendImm)
                            , .nextPc(nextPc)
                            );
 
   DataMem #( .WORD_WIDTH(_WORD_WIDTH)
-           , .ADDR_WIDTH(_ADDR_WIDTH)
+           , .ADDR_WIDTH(_WORD_WIDTH)
            , .DEPTH(_DMEM_DEPTH)
            ) dmem ( .clk(clk)
                   , .writeEnable(dMemWriteEnable)
@@ -108,14 +106,14 @@ module R3ISC_V ();
                   );
 
   InstrMem #( .WORD_WIDTH(_WORD_WIDTH)
-           , .ADDR_WIDTH(_ADDR_WIDTH)
+           , .ADDR_WIDTH(_WORD_WIDTH)
            , .DEPTH(_IMEM_DEPTH)
            ) imem ( .addr(programCount)
                   , .readData(instrBus)
                   );
 
   RegFile # ( .WORD_WIDTH(_WORD_WIDTH) // MAKE REGFILE ADDRESS DECODER FROM INSTRBUS
-            , .ADDR_WIDTH(_ADDR_WIDTH)
+            , .ADDR_WIDTH(_REG_ADDR_WIDTH)
             , .DEPTH(_REG_FILE_DEPTH)
             ) regFile ( .clk(clk)
                       , .addr1R(instrBus[19 : 15])
@@ -134,5 +132,10 @@ module R3ISC_V ();
                                                       , .regWriteData(regWrite3)
                                                       );
   
-
+  always_ff @(negedge nReset)
+  begin
+    
+  end
+  // Make vivsible as top level output to prevent optimising the CPU away
+  assign debugPc = programCount;
 endmodule

@@ -51,7 +51,7 @@ module Cu ( input logic [31 : 0] instrBus
         aluDecCtrl =  AluDecLoadStore;
         aluSrcCtrl = ExtendImm;
         immExtTypeCtrl = ImmI;
-        pcSrcCtrl = PcPlus4;
+        pcSrcCtrl = PcSrc_PcPlus4;
         regWriteEnable = 1;
         regWriteSrcCtrl = DataMem;
         dMemWriteEnable = 0;
@@ -61,17 +61,17 @@ module Cu ( input logic [31 : 0] instrBus
         aluDecCtrl = AluDecLoadStore;
         aluSrcCtrl = ExtendImm;
         immExtTypeCtrl = ImmS;
-        pcSrcCtrl = PcPlus4;
+        pcSrcCtrl = PcSrc_PcPlus4;
         regWriteEnable = 0;
         regWriteSrcCtrl = AluResult;
-        dMemWriteEnable = 0;
+        dMemWriteEnable = 1;
       end
       AluROp:
       begin
         aluDecCtrl = AluDecReg;
         aluSrcCtrl = RegB;
         immExtTypeCtrl = ImmI;
-        pcSrcCtrl = PcPlus4;
+        pcSrcCtrl = PcSrc_PcPlus4;
         regWriteEnable = 1;
         regWriteSrcCtrl = AluResult;
         dMemWriteEnable = 0;
@@ -81,7 +81,7 @@ module Cu ( input logic [31 : 0] instrBus
         aluDecCtrl = AluDecBranch;
         aluSrcCtrl = ExtendImm;
         immExtTypeCtrl = ImmB;
-        pcSrcCtrl = zeroFlag ? PcBranch: PcPlus4;
+        pcSrcCtrl = zeroFlag ? PcSrc_PcBranch: PcSrc_PcPlus4;
         regWriteEnable = 0;
         regWriteSrcCtrl = AluResult; 
         dMemWriteEnable = 0;
@@ -91,7 +91,7 @@ module Cu ( input logic [31 : 0] instrBus
         aluDecCtrl = AluDecImm;
         aluSrcCtrl = ExtendImm;
         immExtTypeCtrl = ImmI;
-        pcSrcCtrl = PcPlus4;
+        pcSrcCtrl = PcSrc_PcPlus4;
         regWriteEnable = 1;
         regWriteSrcCtrl = AluResult;
         dMemWriteEnable = 0;
@@ -101,7 +101,7 @@ module Cu ( input logic [31 : 0] instrBus
         aluDecCtrl = AluDecReg;
         aluSrcCtrl = RegB;
         immExtTypeCtrl = ImmI;
-        pcSrcCtrl = PcPlus4;
+        pcSrcCtrl = PcSrc_PcPlus4;
         regWriteEnable = 0;
         regWriteSrcCtrl = AluResult;
         dMemWriteEnable = 0;

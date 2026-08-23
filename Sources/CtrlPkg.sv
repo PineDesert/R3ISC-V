@@ -45,8 +45,8 @@ package CtrlPkg;
 
   typedef enum logic
   {
-    PcPlus4,
-    PcBranch
+    PcSrc_PcPlus4,
+    PcSrc_PcBranch
   } PcSrcCtrl_t;
 
   typedef enum logic [1 : 0] 

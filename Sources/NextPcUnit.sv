@@ -15,23 +15,41 @@ import CtrlPkg::*;
 
 module NextPcUnit #( parameter int WIDTH = 32
                    , parameter int INCREMENT_AMOUNT = 4) 
-                   ( input PcSrcCtrl_t nextPcSrc
-                   , input logic [WIDTH : 0] pc
-                   , input logic [WIDTH  : 0] nextPcOffset
-                   , output logic [WIDTH : 0] nextPc
+                   ( input logic nReset
+                   , input logic clk
+                   , input PcSrcCtrl_t nextPcSrc
+                   , input logic [WIDTH - 1 : 0] pc
+                   , input logic [WIDTH - 1 : 0] nextPcOffset
+                   , output logic [WIDTH - 1 : 0] nextPc
                    );
+
+  logic resetFlag;
+  logic [WIDTH : 0] pcIncr;
+
+  always_ff @(posedge clk or negedge nReset)
+  begin
+    if (!nReset)
+      resetFlag = 1;
+    else 
+      resetFlag = 0;
+  end
 
   always_comb 
   begin : NextPcLogic
-    logic [WIDTH : 0] pcIncr;
+ 
 
-    unique case (nextPcSrc)
-      PcPlus4:
-        pcIncr = WIDTH'(INCREMENT_AMOUNT);
-      PcBranch:
-        pcIncr = nextPcOffset;
-    endcase
+    if (!resetFlag)
+    begin
+      unique case (nextPcSrc)
+        PcSrc_PcPlus4:
+          pcIncr = WIDTH'(INCREMENT_AMOUNT);
+        PcSrc_PcBranch:
+          pcIncr = nextPcOffset;
+      endcase
 
-    nextPc = pc + pcIncr;
+      nextPc = pc + pcIncr;
+    end
+    else // Reset
+      nextPc = '0;
   end
 endmodule
