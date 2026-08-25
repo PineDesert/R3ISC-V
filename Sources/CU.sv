@@ -79,9 +79,9 @@ module Cu ( input logic [31 : 0] instrBus
       BranchOp:
       begin
         aluDecCtrl = AluDecBranch;
-        aluSrcCtrl = ExtendImm;
+        aluSrcCtrl = RegB;
         immExtTypeCtrl = ImmB;
-        pcSrcCtrl = zeroFlag ? PcSrc_PcBranch: PcSrc_PcPlus4;
+        pcSrcCtrl = zeroFlag ? PcSrc_PcBranch : PcSrc_PcPlus4;
         regWriteEnable = 0;
         regWriteSrcCtrl = AluResult; 
         dMemWriteEnable = 0;

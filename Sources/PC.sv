@@ -13,11 +13,17 @@
 
 module Pc #(parameter WIDTH = 32)
            ( input logic clk
-           , input logic [WIDTH - 1: 0] nextPC
+           , input logic nReset
+           , input logic [WIDTH - 1: 0] nextPc
            , output logic [WIDTH - 1 : 0] pc
            );
 
-  always_ff @(posedge clk)
-    pc <= nextPC;
+  always_ff @(posedge clk or negedge nReset)
+  begin
+    if (!nReset)
+      pc <= WIDTH'(0);
+    else // update PC
+      pc <= nextPc;
+  end
 
 endmodule

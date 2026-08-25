@@ -25,7 +25,7 @@ module test_R3ISCV();
     nReset = '1;
     #5 nReset = '0;
     #5 nReset = '1;
-    #200 $stop;
+    #300 $stop;
   end
 
   initial

@@ -32,7 +32,7 @@ begin
         default: aluOpCtrl = Add; // BOTCHED default, add illegal case to send to a future hazard unit? 
       endcase
     end
-    AluROp:
+    AluDecReg:
     begin
       unique case (func3)
         3'b000: aluOpCtrl = Add; // add

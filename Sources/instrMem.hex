@@ -1,9 +1,18 @@
-# Address  Instruction   Meaning
-0x0000     0x00500093    ADDI x1, x0, 5      ; x1 = 5
-0x0004     0x00A00113    ADDI x2, x0, 10     ; x2 = 10
-0x0008     0x002081B3    ADD  x3, x1, x2     ; x3 = 15
-0x000C     0x0030A233    SW   x3, 0(x1)      ; MEM[x1+0] = x3
-0x0010     0x0000A283    LW   x5, 0(x1)      ; x5 = MEM[x1+0]
-0x0014     0x0051A333    AND  x6, x3, x5     ; x6 = x3 & x5
-0x0018     0x0051A3B3    OR   x7, x3, x5     ; x7 = x3 | x5
-0x001C     0x00528463    BEQ  x5, x5, +8     ; branch (always) to 0x0028
+// Test Program: tests every instruction, definitely not exhaustitive
+
+00500093 // ADDI x1, x0, 5 
+00A00113 // ADDI x2, x0, 10
+002081B3 // ADD  x3, x1, x2
+0030A023 // SW   x3, 0(x1)
+0000A283 // LW   x5, 0(x1)
+0021F333 // AND  x6, x3, x5
+0021E3B3 // OR   x7, x3, x5
+00000463 // BEQ  x0, x0, +8
+00000013 // ADDI x0, x0, 0   ; NOP
+00000013 // ADDI x0, x0, 0   ; NOP
+00000013 // ADDI x0, x0, 0   ; NOP
+00000013 // ADDI x0, x0, 0   ; NOP
+FC000CE3 // BEQ  x0, x0, -40
+00000013 // ADDI x0, x0, 0  ; NOP
+00000013 // ADDI x0, x0, 0  ; NOP
+00000013 // ADDI x0, x0, 0  ; NOP

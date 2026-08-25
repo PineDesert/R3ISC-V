@@ -40,7 +40,8 @@ module R3ISC_V (input logic clk, input logic nReset, output logic [31 : 0] debug
 
   logic [_WORD_WIDTH - 1 : 0] programCount;
 
-  logic [_WORD_WIDTH - 1: 0] nextPc;
+  logic [_WORD_WIDTH - 1 : 0] pcPlus4;
+  logic [_WORD_WIDTH - 1 : 0] nextPc;
 
   logic [_WORD_WIDTH - 1 : 0] dmemRead;
 
@@ -81,17 +82,17 @@ module R3ISC_V (input logic clk, input logic nReset, output logic [31 : 0] debug
                   );
 
   Pc #(.WIDTH(_WORD_WIDTH)) pc ( .clk(clk)
-                               , .nextPC(nextPc)
+                               , .nReset(nReset)
+                               , .nextPc(nextPc)
                                , .pc(programCount)
                                );
 
   NextPcUnit #( .WIDTH(_WORD_WIDTH)
               , .INCREMENT_AMOUNT(_PC_INCREMENT)
-              ) nextPcUnit ( .clk(clk)
-                           , .nReset(nReset)
-                           , .nextPcSrc(pcSrcCtrl)
+              ) nextPcUnit ( .nextPcSrc(pcSrcCtrl)
                            , .pc(programCount)
                            , .nextPcOffset(extendImm)
+                           , .pcPlus4Out(pcPlus4)
                            , .nextPc(nextPc)
                            );
 
@@ -128,14 +129,10 @@ module R3ISC_V (input logic clk, input logic nReset, output logic [31 : 0] debug
   RegFileWriteSrcMux #(.WIDTH(_WORD_WIDTH)) regSrcMux ( .writeSrc(regWriteSrcCtrl)
                                                       , .aluResult(aluResult)
                                                       , .dataMem(dmemRead)
-                                                      , .pcPlus4(programCount + _WORD_WIDTH'(4))
+                                                      , .pcPlus4(pcPlus4)
                                                       , .regWriteData(regWrite3)
                                                       );
   
-  always_ff @(negedge nReset)
-  begin
-    
-  end
   // Make vivsible as top level output to prevent optimising the CPU away
   assign debugPc = programCount;
 endmodule
