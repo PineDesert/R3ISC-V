@@ -132,7 +132,6 @@ module R3ISC_V (input logic clk, input logic nReset, output logic [31 : 0] debug
                                                       , .pcPlus4(pcPlus4)
                                                       , .regWriteData(regWrite3)
                                                       );
-  
-  // Make vivsible as top level output to prevent optimising the CPU away
-  assign debugPc = programCount;
+
+    assign debugPc = programCount; // Make the program counter visible to the testbench                                                       
 endmodule
