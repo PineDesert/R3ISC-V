@@ -4,5 +4,6 @@
 			"path": "."
 		}
 	],
+	"name": "RISC_V CPU",
 	"settings": {}
 }
