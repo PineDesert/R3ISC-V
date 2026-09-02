@@ -7,7 +7,7 @@
  *
  * Description : Instruction memory, DEPTH deep
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -23,7 +23,7 @@ module InstrMem #(parameter int WORD_WIDTH = 32
 
   initial
   begin: PopulateInstrMem // Handwritten test program woo
-    $readmemh("instrMem.hex", mem);
+    $readmemh("Sources/instrMem.hex", mem);
     $display("InstrMem contents: ");
     for (int i = 0; i < DEPTH; i++)
     begin

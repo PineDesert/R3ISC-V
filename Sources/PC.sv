@@ -7,7 +7,7 @@
  *
  * Description : Program counter, WIDTH bit register, control for next PC
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 

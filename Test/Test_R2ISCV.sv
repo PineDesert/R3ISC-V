@@ -1,7 +1,7 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Project     : R3ISC-V
- * File        : Test_R3ISCV.sv
+ * Project     : R2ISC-V
+ * File        : Test_R2ISCV.sv
  * Author      : JoeK
  * Created     : 2026/08/23
  *
@@ -11,13 +11,14 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-module test_R3ISCV();
+module test_R2ISCV();
 
   logic nReset;
   logic clk;
   logic [31 : 0] pc;
+  logic illegalInstrFlag;
 
-  R3ISC_V dut (.clk(clk), .nReset(nReset), .debugPc(pc));
+  R2ISC_V #(.IS_SIMULATION(1)) dut (.clkIn(clk), .nReset(nReset), .debugPc(pc), .illegalInstrFlag(illegalInstrFlag));
 
   initial
   begin
@@ -25,7 +26,7 @@ module test_R3ISCV();
     nReset = '1;
     #5 nReset = '0;
     #5 nReset = '1;
-    #300 $stop;
+    #350 $stop;
   end
 
   initial

@@ -7,7 +7,7 @@
  *
  * Description : Produces ALU operation control signal from opClass, func3, func7
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -23,13 +23,14 @@ module AluDecoder ( input AluDecoderCtrl_t aluDecCtrl
 always_comb 
 begin
   unique case (aluDecCtrl)
+    AluDecBypass: aluOpCtrl = Bypass;
     AluDecLoadStore: aluOpCtrl = Add; // lw sw
     AluDecBranch: aluOpCtrl = Sub; // beq
     AluDecImm:
     begin
       unique case (func3)
         3'b000: aluOpCtrl = Add; // addi
-        default: aluOpCtrl = Add; // BOTCHED default, add illegal case to send to a future hazard unit? 
+        default: aluOpCtrl = Illegal; 
       endcase
     end
     AluDecReg:
@@ -38,8 +39,10 @@ begin
         3'b000: aluOpCtrl = Add; // add
         3'b110: aluOpCtrl = Or; // or
         3'b111: aluOpCtrl = And; // and
+        default: aluOpCtrl = Illegal;
       endcase
     end
+    default: aluOpCtrl = Illegal;
   endcase  
 end
 

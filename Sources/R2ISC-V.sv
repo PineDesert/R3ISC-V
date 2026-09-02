@@ -1,27 +1,34 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Project     : R3ISC-V
- * File        : R3ISC-V.sv
+ * Project     : R2ISC-V
+ * File        : R2ISC-V.sv
  * Author      : JoeK
  * Created     : 2026/08/20
  *
- * Description : Top level file for the R3ISC-V project
+ * Description : Top level file for the R2ISC-V project
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
 import CtrlPkg::*;
 
-module R3ISC_V (input logic clk, input logic nReset, output logic [31 : 0] debugPc);
+module R2ISC_V #(parameter IS_SIMULATION = 0) ( input logic clkIn
+                                              , input logic nReset
+                                              , output logic [31 : 0] debugPc
+                                              , output logic illegalInstrFlag
+                                              );
 
 
   localparam int _WORD_WIDTH = 32;
   localparam int _REG_ADDR_WIDTH = 5;
-  localparam int _DMEM_DEPTH = 16; // No protection if DMEM address exceeds atm
-  localparam int _IMEM_DEPTH = 16; // Same as above
+  localparam int _DMEM_DEPTH = 16; // No protection if DMEM address to read/write from exceeds atm
+  localparam int _IMEM_DEPTH = 32; 
   localparam int _REG_FILE_DEPTH = 32;
   localparam int _PC_INCREMENT = 4;
+  localparam int _PRE_CLK_DIV = 50000000; // f_out = f_in / (2 * CLK_DIV) 1Hz out from 100MHz in
+
+  logic clk;
 
   AluOpCtrl_t aluOpCtrl;
   AluSrcCtrl_t aluSrcCtrl;
@@ -52,16 +59,32 @@ module R3ISC_V (input logic clk, input logic nReset, output logic [31 : 0] debug
 
   logic [_WORD_WIDTH - 1 : 0] regWrite3;
 
-  Cu cu ( .instrBus(instrBus)
-        , .zeroFlag(aluZeroFlag)
-        , .aluOpCtrl(aluOpCtrl)
-        , .aluSrcCtrl(aluSrcCtrl)
-        , .immExtTypeCtrl(immExtTypeCtrl)
-        , .pcSrcCtrl(pcSrcCtrl)
-        , .regWriteEnable(regWriteEnable)
-        , .regWriteSrcCtrl(regWriteSrcCtrl)
-        , .dMemWriteEnable(dMemWriteEnable)
-        );
+  generate
+    if (IS_SIMULATION)
+    begin
+      assign clk = clkIn; // Use testbench clock directly
+    end
+    else // Not simulation
+    begin
+      // Use prescaler to slow down clock for easier observation
+      Prescaler #(.CLK_DIV(_PRE_CLK_DIV)) prescaler ( .nReset(nReset)
+                                                    , .clkIn(clkIn)
+                                                    , .clkOut(clk)
+                                                    );
+    end
+  endgenerate
+
+  Cu #(.WIDTH(_WORD_WIDTH)) cu ( .instrBus(instrBus)
+                               , .zeroFlag(aluZeroFlag)
+                               , .aluOpCtrl(aluOpCtrl)
+                               , .aluSrcCtrl(aluSrcCtrl)
+                               , .immExtTypeCtrl(immExtTypeCtrl)
+                               , .pcSrcCtrl(pcSrcCtrl)
+                               , .regWriteEnable(regWriteEnable)
+                               , .regWriteSrcCtrl(regWriteSrcCtrl)
+                               , .dMemWriteEnable(dMemWriteEnable)
+                               , .illegalInstrFlag(illegalInstrFlag)
+                               );
 
   Alu #(.WIDTH(_WORD_WIDTH)) alu ( .opCtrl(aluOpCtrl)
                                  , .srcA(regRead1)
@@ -130,6 +153,7 @@ module R3ISC_V (input logic clk, input logic nReset, output logic [31 : 0] debug
                                                       , .aluResult(aluResult)
                                                       , .dataMem(dmemRead)
                                                       , .pcPlus4(pcPlus4)
+                                                      , .extImm(extendImm)
                                                       , .regWriteData(regWrite3)
                                                       );
 

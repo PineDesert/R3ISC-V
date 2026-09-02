@@ -1,13 +1,13 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Project     : R3ISC-V
+ * Project     : R2ISC-V
  * File        : NextPcMux.sv
  * Author      : JoeK
  * Created     : 2026/08/08
  *
  * Description : Datapath for PC and next PC state logic
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -34,6 +34,8 @@ module NextPcUnit #( parameter int WIDTH = 32
     unique case (nextPcSrc)
       PcSrc_PcPlus4:  nextPc = pcPlus4;
       PcSrc_PcBranch: nextPc = pcBranch;
+      PcSrc_Halt:     nextPc = pc;
+      default:        nextPc = pc;
     endcase
   end
 endmodule

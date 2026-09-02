@@ -1,6 +1,6 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Project     : R3ISC-V
+ * Project     : R2ISC-V
  * File        : DecodePkg.sv
  * Author      : JoeK
  * Created     : 2026/08/09
@@ -8,7 +8,7 @@
  * Description : Contains enums used in decoding instructions to produce the 
  *               contol signals for the CPU
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -21,7 +21,7 @@ package DecodePkg;
     AluImmOp,
     AluROp,
     BranchOp,
-    //LuiOp,
+    LuiOp,
     //AuipcOP,
     //JalRegOp,
     //JalOp,

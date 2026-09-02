@@ -1,13 +1,13 @@
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Project     : R3ISC-V
+ * Project     : R2ISC-V
  * File        : ALU.sv
  * Author      : JoeK
  * Created     : 2026/08/08
  *
- * Description : Simple ALU for R3ISC-V implementation
+ * Description : Simple ALU for R2ISC-V implementation
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -31,8 +31,12 @@ begin
       result = srcA & srcB;
     Or:
       result = srcA | srcB;
+    Bypass: 
+      result = srcA;
+    Illegal:
+      result = srcA; 
     default:
-      result = '0;
+      result = srcA;
   endcase
   zeroFlag = (result == '0) ? 1'b1 : 1'b0;
 end

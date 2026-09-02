@@ -7,7 +7,7 @@
  *
  * Description : 2:1 mux to control ALU source, uses an enum control signal
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 

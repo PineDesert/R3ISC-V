@@ -8,7 +8,7 @@
  * Description : Data memory to store stack for RISC-V project, async read,
  * sync write
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 

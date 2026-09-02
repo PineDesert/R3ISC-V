@@ -7,7 +7,7 @@
  *
  * Description : Produces opClass output from op input
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -28,6 +28,7 @@ module Decoder ( input logic [31 : 0] instrBus
       7'b0100011: opClass = StoreOp;
       7'b0110011: opClass = AluROp;
       7'b1100011: opClass = BranchOp;
+      7'b0110111: opClass = LuiOp;
       default: opClass = IllegalOp;
     endcase
   end

@@ -8,7 +8,7 @@
  * Description : Register file, WIDTH bit wide, DEPTH deep, 2 async read
  * 1 sync write, writeEnable
  *
- * License     : None
+ * License     : MIT
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
